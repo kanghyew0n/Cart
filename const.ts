@@ -1,0 +1,1 @@
+export const tagItems: string[] = ["전체", "쿠폰 사용 가능 상품"]

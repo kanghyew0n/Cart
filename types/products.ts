@@ -6,3 +6,7 @@ export type PRODUCT = {
     score: number;
     availableCoupon?: boolean;
 };
+
+export type PRODUCTS = {
+    products : PRODUCT[];
+};
