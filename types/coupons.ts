@@ -1,4 +1,4 @@
-export type CART = {
+export type Coupons = {
     type: string;
     title: string;
     discountRate: number;
