@@ -1,7 +1,10 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
-const Header = () => {
+export const Header = () => {
+    const router = useRouter();
+
     return (
         <HeaderContainer>
             <InnerContainer>
@@ -10,10 +13,22 @@ const Header = () => {
                 </Link>
                 <ul>
                     <Link href="/products">
-                        <li>Products</li>
+                        <li
+                            className={
+                                router.pathname === "/products" ? "active" : ""
+                            }
+                        >
+                            Products
+                        </li>
                     </Link>
                     <Link href="/cart">
-                        <li>Cart</li>
+                        <li
+                            className={
+                                router.pathname === "/cart" ? "active" : ""
+                            }
+                        >
+                            Cart
+                        </li>
                     </Link>
                 </ul>
             </InnerContainer>
@@ -50,7 +65,9 @@ const InnerContainer = styled.div`
             font-weight: 600;
             cursor: pointer;
         }
+
+        .active {
+            color: #ff4800;
+        }
     }
 `;
-
-export default Header;

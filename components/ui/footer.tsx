@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-const footer = () => {
+export const Footer = () => {
   return (
     <FooterContainer>footer</FooterContainer>
   )
@@ -10,4 +10,3 @@ const FooterContainer = styled.footer`
     
 `
 
-export default footer

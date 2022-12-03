@@ -1,18 +1,17 @@
 import styled from "@emotion/styled";
-import { ReactElement } from "react";
-import Header from "./header";
-import Footer from "./footer";
+import { Header } from "./header";
+import { Footer } from "./footer";
 
-type Props = {
+type ChildrenProps = {
     children: React.ReactNode;
 };
 
-const Layout = (props: Props) => {
+const Layout = (props: ChildrenProps) => {
     return (
         <>
             <Header />
             <Container>{props.children}</Container>
-            <Footer />
+            {/* <Footer /> */}
         </>
     );
 };
