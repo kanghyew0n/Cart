@@ -1,16 +1,36 @@
+import { Dispatch, SetStateAction } from "react";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import { CartItem } from "../../types/products";
 
 type CartItemsProps = {
     cartItem: CartItem;
+    setCartCheckedItems: Dispatch<SetStateAction<CartItem[]>>;
+    cartCheckedItems: CartItem[];
+    handleChangeChecked: (cartItem: CartItem) => void;
+    handleStockChange:(stock:number, cartItem: CartItem) => void;
 };
 
 const CartItem = (props: CartItemsProps) => {
+    const CUPON = () => {
+        if (props.cartItem.product.availableCoupon !== undefined) {
+            return true;
+        }
+        return false;
+    };
+
     return (
         <CartItemContainer>
             <td>
-                <input type="checkbox" />
+                <input
+                    type="checkbox"
+                    checked={
+                        props.cartCheckedItems.includes(props.cartItem)
+                            ? true
+                            : false
+                    }
+                    onChange={() => props.handleChangeChecked(props.cartItem)}
+                />
             </td>
             <td className="productInfoGroup">
                 <Image
@@ -24,20 +44,26 @@ const CartItem = (props: CartItemsProps) => {
                         {props.cartItem.product.item_name}
                     </div>
                     <div className="price">{props.cartItem.product.price}</div>
-                    <span
-                        className={
-                            props.cartItem.product.availableCoupon !== undefined
-                                ? "cupon"
-                                : "activeCupon"
-                        }
-                    >
-                        {props.cartItem.product.availableCoupon !== undefined
-                            ? "쿠폰 적용 불가능"
-                            : "쿠폰 적용 가능"}
+                    <span className={CUPON() ? "cupon" : "activeCupon"}>
+                        {CUPON() ? "쿠폰 적용 불가능" : "쿠폰 적용 가능"}
                     </span>
                 </div>
             </td>
-            <td className="stock">{props.cartItem.stock}</td>
+            <td className="stock">
+                <input
+                    type="number"
+                    min={1}
+                    value={props.cartItem.stock}
+                    max={49}
+                    onChange={(e) => {
+                        props.handleStockChange(
+                            Number(e.target.value),
+                            props.cartItem
+                        );
+                    }}
+                />
+            </td>
+
             <td className="productPrice">
                 {props.cartItem.stock * props.cartItem.product.price}
                 <span>원</span>

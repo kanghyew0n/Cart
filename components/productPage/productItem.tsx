@@ -24,8 +24,7 @@ const ProductItem = (props: ProductsProps) => {
         }
 
         // 카트 아이템에 아이템 추가
-        setCartItems([...cartItems, { product, stock: 1 }]);
-        console.log(cartItems);
+        setCartItems([...cartItems, { product, stock: 1, checked: true }]);
     };
 
     return (

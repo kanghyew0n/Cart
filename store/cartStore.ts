@@ -1,5 +1,5 @@
 import create from "zustand";
-import { CartItems, CartItem } from "../types/products";
+import { CartItem } from "../types/products";
 
 type CartItemType = {
     cartItems: CartItem[];
@@ -8,7 +8,7 @@ type CartItemType = {
 
 const useCartItem = create<CartItemType>((set) => ({
     cartItems: [],
-    setCartItems: (cartItems : CartItem[]) => set(() => ({ cartItems })),
+    setCartItems: (cartItems: CartItem[]) => set(() => ({ cartItems })),
 }));
 
 export default useCartItem;

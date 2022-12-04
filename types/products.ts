@@ -14,6 +14,7 @@ export type Products = {
 export type CartItem = {
     product: Product;
     stock: number;
+    checked : boolean;
 }
 
 export type CartItems = {

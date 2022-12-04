@@ -1,13 +1,12 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
-import useCartItem from "../../store/cartStore";
+import { CartItem } from "../../types/products";
 
-export const TotalPriceBar = () => {
-    const { cartItems } = useCartItem();
+export const TotalPriceBar = (props: { cartCheckedItems: CartItem[] }) => {
 
     const TOTALPRICE = () => {
         let sumPrice = 0;
-        cartItems.map((item) => (sumPrice += item.product.price));
+        props.cartCheckedItems.map((item) => (sumPrice += item.product.price * item.stock));
         return sumPrice;
     };
 
