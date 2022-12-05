@@ -5,6 +5,7 @@
 
 ### 🛠 Install
 ```
+cd frontend-project-29cm 
 npm install
 ```
 
@@ -16,6 +17,7 @@ npm install
     * http://localhost:8000/productItems
     * http://localhost:8000/coupons 
 ```
+// frontend-project-29cm 폴더에서
 npm run dev
 npm run server
 ```
