@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import CartItem from "../../components/cartPage/cartItem";
 import useCartItem from "../../store/cartStore";
 import { CartItemState } from "../../types/products";
-import EmptyData from "../ui/emptyData";
+import { BREAK_POINT_PHONE } from "../../const";
 
 const CartItemList = (props: any) => {
     const { cartCheckedItems, setCartCheckedItems, setCouponChecked } = props;
@@ -54,7 +54,7 @@ const CartItemList = (props: any) => {
             <CartPageContainer>
                 <tbody>
                     <CartTableTop>
-                        <th>
+                        <th className="inputBox">
                             <input
                                 type="checkbox"
                                 checked={
@@ -66,6 +66,7 @@ const CartItemList = (props: any) => {
                                     handleAllChecked(e.target.checked)
                                 }
                             />
+                            <span className="allCheck">전체선택</span>
                         </th>
                         <th>상품 정보</th>
                         <th>수량</th>
@@ -108,6 +109,29 @@ const CartTableTop = styled.tr`
 
     .orderPrice {
         width: 200px;
+    }
+
+    .allCheck {
+        display: none;
+    }
+    @media only screen and (max-width: ${BREAK_POINT_PHONE}px) {
+        height: 32px;
+        display: flex;
+        flex-direction: column;
+        width: 100px;
+        th {
+            width: 100%;
+            display: none;
+            padding: 5px 0;
+            border: none;
+        }
+        .inputBox {
+            display: block;
+        }
+        .allCheck {
+            display: inline;
+            margin-left: 5px;
+        }
     }
 `;
 

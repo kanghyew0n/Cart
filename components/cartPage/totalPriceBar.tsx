@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Link from "next/link";
 import { CartItemState } from "../../types/products";
 import { CouponState } from "../../types/coupons";
+import { BREAK_POINT_PHONE } from "../../const";
 
 type TotalPriceProps = {
     cartCheckedItems: CartItemState[];
@@ -17,10 +18,16 @@ export const TotalPriceBar = (props: TotalPriceProps) => {
         let totalPrice = 0;
 
         for (let i = 0; i < cartCheckedItems.length; i++) {
-            if(cartCheckedItems[i].product.availableCoupon === undefined) {
-                couponAppliedPrice += cartCheckedItems[i].product.price * cartCheckedItems[i].stock
-            } else if(cartCheckedItems[i].product.availableCoupon !== undefined) {
-                originPrice += cartCheckedItems[i].product.price * cartCheckedItems[i].stock
+            if (cartCheckedItems[i].product.availableCoupon === undefined) {
+                couponAppliedPrice +=
+                    cartCheckedItems[i].product.price *
+                    cartCheckedItems[i].stock;
+            } else if (
+                cartCheckedItems[i].product.availableCoupon !== undefined
+            ) {
+                originPrice +=
+                    cartCheckedItems[i].product.price *
+                    cartCheckedItems[i].stock;
             }
         }
 
@@ -30,7 +37,10 @@ export const TotalPriceBar = (props: TotalPriceProps) => {
                     couponAppliedPrice *
                     (100 - couponChecked[0].discountRate) *
                     0.01;
-            } else if (couponChecked[0].discountAmount && couponAppliedPrice !== 0) {
+            } else if (
+                couponChecked[0].discountAmount &&
+                couponAppliedPrice !== 0
+            ) {
                 couponAppliedPrice -= couponChecked[0].discountAmount;
             }
         } else {
@@ -47,7 +57,7 @@ export const TotalPriceBar = (props: TotalPriceProps) => {
         <TotalPriceBarContainer>
             <InnerContainer>
                 <div className="totalPrice">
-                    <div>총 결제 금액</div>
+                    <div className="totalPriceText">총 결제 금액</div>
                     <div className="price">
                         <span>{TOTALPRICE()}</span>원
                     </div>
@@ -81,6 +91,20 @@ const InnerContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media only screen and (max-width: ${BREAK_POINT_PHONE}px) {
+        padding: 0 1rem;
+        .totalPrice {
+            font-size: 14px;
+            span,
+            .totalPriceText,
+            .price {
+                font-size: 14px;
+            }
+        }
+        .continue {
+            display: none;
+        }
+    }
 
     .totalPrice,
     .buttonGroup {

@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction } from "react";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import { CartItemState } from "../../types/products";
+import { BREAK_POINT_PHONE } from "../../const";
 
 type CartItemsProps = {
     cartItem: CartItemState;
@@ -26,14 +26,10 @@ const CartItem = (props: CartItemsProps) => {
 
     return (
         <CartItemContainer>
-            <td>
+            <td className="mobileBorder">
                 <input
                     type="checkbox"
-                    checked={
-                        cartCheckedItems.includes(cartItem)
-                            ? true
-                            : false
-                    }
+                    checked={cartCheckedItems.includes(cartItem) ? true : false}
                     onChange={() => handleChangeChecked(cartItem)}
                 />
             </td>
@@ -45,9 +41,7 @@ const CartItem = (props: CartItemsProps) => {
                     alt="상품 이미지"
                 />
                 <div className="productInfo">
-                    <div className="itemName">
-                        {cartItem.product.item_name}
-                    </div>
+                    <div className="itemName">{cartItem.product.item_name}</div>
                     <div className="price">{cartItem.product.price}</div>
                     <span className={COUPON() ? "coupon" : "activeCoupon"}>
                         {COUPON() ? "쿠폰 적용 불가능" : "쿠폰 적용 가능"}
@@ -61,10 +55,7 @@ const CartItem = (props: CartItemsProps) => {
                     value={cartItem.stock}
                     max={49}
                     onChange={(e) => {
-                        handleStockChange(
-                            Number(e.target.value),
-                            cartItem
-                        );
+                        handleStockChange(Number(e.target.value), cartItem);
                     }}
                 />
             </td>
@@ -78,6 +69,7 @@ const CartItem = (props: CartItemsProps) => {
 };
 
 const CartItemContainer = styled.tr`
+    
     td {
         border-bottom: 1px solid #eee;
         border-right: 1px solid #eee;
@@ -142,6 +134,21 @@ const CartItemContainer = styled.tr`
             padding: 5px;
             text-align: center;
             font-weight: 700;
+        }
+    }
+
+    @media only screen and (max-width: ${BREAK_POINT_PHONE}px) {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 32px;
+
+        td {
+            border: none;
+            padding: 10px 0;
+        }
+
+        .mobileBorder {
+            border-top: 3px solid #222;
         }
     }
 `;

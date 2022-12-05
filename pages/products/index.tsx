@@ -3,11 +3,11 @@ import { useEffect } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { ProductState } from "../../types/products";
 import { getProductsItem } from "../../api/productsAPI";
-import { tagItems } from "../../const";
 import Layout from "../../components/ui/layout";
 import ProductItem from "../../components/productPage/productItem";
 import { Pagination } from "../../components/productPage/pagination";
 import usePaging from "../../store/pageInfoStore";
+import { BREAK_POINT_PHONE } from "../../const";
 
 const maxPage = 3;
 
@@ -53,16 +53,13 @@ export default function ProductsPage() {
     );
 }
 
-const TagGroup = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 48px;
-`;
 
 const ProductsContainer = styled.div`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     gap: 32px;
+    @media only screen and (max-width: ${BREAK_POINT_PHONE}px) {
+        display: block;
+    }
 `;

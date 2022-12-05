@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ProductState } from "../../types/products";
 import { CartButton } from "./cartButton";
 import useCartItem from "../../store/cartStore";
+import { BREAK_POINT_PHONE } from "../../const";
 
 type ProductsProps = {
     product: ProductState;
@@ -89,6 +90,11 @@ const ProductItemContainer = styled.div`
         div {
             opacity: 1;
         }
+    }
+
+    @media only screen and (max-width: ${BREAK_POINT_PHONE}px) {
+        width: 100%;
+        margin-bottom: 32px;
     }
 `;
 

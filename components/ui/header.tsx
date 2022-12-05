@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { BREAK_POINT_PHONE } from "../../const";
 
 export const Header = () => {
     const router = useRouter();
@@ -9,7 +10,7 @@ export const Header = () => {
         <HeaderContainer>
             <InnerContainer>
                 <Link href="/">
-                    <h2>Kanghyew0n Shop</h2>
+                    <h2>Shop</h2>
                 </Link>
                 <ul>
                     <Link href="/products">
@@ -64,10 +65,21 @@ const InnerContainer = styled.div`
             font-size: 18px;
             font-weight: 600;
             cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            &:hover {
+                color: #ff4800;
+            }
         }
 
         .active {
             color: #ff4800;
+        }
+    }
+    @media only screen and (max-width: ${BREAK_POINT_PHONE}px) {
+        padding: 0 1rem;
+        h2,
+        li {
+            font-size: 16px;
         }
     }
 `;
