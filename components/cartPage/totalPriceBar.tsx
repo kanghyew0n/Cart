@@ -1,13 +1,46 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
-import { CartItem } from "../../types/products";
+import { CartItemState } from "../../types/products";
+import { CouponState } from "../../types/coupons";
 
-export const TotalPriceBar = (props: { cartCheckedItems: CartItem[] }) => {
+type TotalPriceProps = {
+    cartCheckedItems: CartItemState[];
+    couponChecked: CouponState[];
+};
+
+export const TotalPriceBar = (props: TotalPriceProps) => {
+    const { cartCheckedItems, couponChecked } = props;
 
     const TOTALPRICE = () => {
-        let sumPrice = 0;
-        props.cartCheckedItems.map((item) => (sumPrice += item.product.price * item.stock));
-        return sumPrice;
+        let couponAppliedPrice = 0;
+        let originPrice = 0;
+        let totalPrice = 0;
+
+        for (let i = 0; i < cartCheckedItems.length; i++) {
+            if(cartCheckedItems[i].product.availableCoupon === undefined) {
+                couponAppliedPrice += cartCheckedItems[i].product.price * cartCheckedItems[i].stock
+            } else if(cartCheckedItems[i].product.availableCoupon !== undefined) {
+                originPrice += cartCheckedItems[i].product.price * cartCheckedItems[i].stock
+            }
+        }
+
+        if (couponChecked.length !== 0) {
+            if (couponChecked[0].discountRate) {
+                couponAppliedPrice =
+                    couponAppliedPrice *
+                    (100 - couponChecked[0].discountRate) *
+                    0.01;
+            } else if (couponChecked[0].discountAmount && couponAppliedPrice !== 0) {
+                couponAppliedPrice -= couponChecked[0].discountAmount;
+            }
+        } else {
+            cartCheckedItems.map(
+                (item) => (totalPrice += item.product.price * item.stock)
+            );
+            return Math.floor(totalPrice);
+        }
+
+        return Math.floor(couponAppliedPrice + originPrice);
     };
 
     return (

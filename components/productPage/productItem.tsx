@@ -1,45 +1,58 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
-import { Product } from "../../types/products";
+import { ProductState } from "../../types/products";
 import { CartButton } from "./cartButton";
 import useCartItem from "../../store/cartStore";
 
 type ProductsProps = {
-    product: Product;
+    product: ProductState;
 };
 
 const ProductItem = (props: ProductsProps) => {
+    const { product } = props;
     const { cartItems, setCartItems } = useCartItem();
 
-    const handleAddCart = (product: Product) => {
-         // 같은 상품은 수량 증가
-         if(cartItems.map((item) => item.product.item_no).includes(product.item_no)) {
-            return alert("이미 장바구니에 존재합니다, 장바구니로 이동하기")
-
+    const handleAddCart = (product: ProductState) => {
+        if (
+            cartItems
+                .map((item) => item.product.item_no)
+                .includes(product.item_no)
+        ) {
+            if (window.confirm("이미 장바구니에 존재합니다, 장바구니에서 제거하시겠습니까?")) {
+                return setCartItems(
+                    cartItems.filter(
+                        (item) => item.product.item_no !== product.item_no
+                    )
+                );
+            } else {
+                return;
+            }
         }
 
-        // 최대 3개의 상품
+       
         if (cartItems.length === 3) {
             return alert("상품은 최대 3개까지 담을 수 있습니다.");
         }
 
-        // 카트 아이템에 아이템 추가
         setCartItems([...cartItems, { product, stock: 1, checked: true }]);
     };
 
     return (
         <ProductItemContainer>
-            <CartButton handleAddCart={() => handleAddCart(props.product)} product={props.product}/>
+            <CartButton
+                handleAddCart={() => handleAddCart(product)}
+                product={product}
+            />
             <Image
-                src={props.product.detail_image_url}
+                src={product.detail_image_url}
                 width={500}
                 height={500}
                 alt="상품 이미지"
                 className="productImage"
             />
-            <div className="name">{props.product.item_name}</div>
+            <div className="name">{product.item_name}</div>
             <div className="price">
-                {props.product.price}
+                {product.price}
                 <span>원</span>
             </div>
         </ProductItemContainer>

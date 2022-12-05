@@ -1,22 +1,23 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
 import { MouseEventHandler } from "react";
-import { Product } from "../../types/products";
+import { ProductState } from "../../types/products";
 import useCartItem from "../../store/cartStore";
 
 type CartButtonProps = {
     handleAddCart: MouseEventHandler<HTMLDivElement> | undefined;
-    product: Product;
+    product: ProductState;
 };
 
 export const CartButton = (props: CartButtonProps) => {
+    const { handleAddCart, product } = props;
     const { cartItems } = useCartItem();
 
     const IMAGE = () => {
         if (
             cartItems
                 .map((item) => item.product.item_no)
-                .includes(props.product.item_no)
+                .includes(product.item_no)
         ) {
             return (
                 <Image
@@ -39,7 +40,7 @@ export const CartButton = (props: CartButtonProps) => {
     };
 
     return (
-        <ButtonContainer onClick={props.handleAddCart}>
+        <ButtonContainer onClick={handleAddCart}>
             {IMAGE()}
         </ButtonContainer>
     );

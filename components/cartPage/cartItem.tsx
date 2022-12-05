@@ -1,19 +1,24 @@
 import { Dispatch, SetStateAction } from "react";
 import styled from "@emotion/styled";
 import Image from "next/image";
-import { CartItem } from "../../types/products";
+import { CartItemState } from "../../types/products";
 
 type CartItemsProps = {
-    cartItem: CartItem;
-    setCartCheckedItems: Dispatch<SetStateAction<CartItem[]>>;
-    cartCheckedItems: CartItem[];
-    handleChangeChecked: (cartItem: CartItem) => void;
-    handleStockChange:(stock:number, cartItem: CartItem) => void;
+    cartItem: CartItemState;
+    cartCheckedItems: CartItemState[];
+    handleChangeChecked: (cartItem: CartItemState) => void;
+    handleStockChange: (stock: number, cartItem: CartItemState) => void;
 };
 
 const CartItem = (props: CartItemsProps) => {
-    const CUPON = () => {
-        if (props.cartItem.product.availableCoupon !== undefined) {
+    const {
+        cartItem,
+        cartCheckedItems,
+        handleChangeChecked,
+        handleStockChange,
+    } = props;
+    const COUPON = () => {
+        if (cartItem.product.availableCoupon !== undefined) {
             return true;
         }
         return false;
@@ -25,27 +30,27 @@ const CartItem = (props: CartItemsProps) => {
                 <input
                     type="checkbox"
                     checked={
-                        props.cartCheckedItems.includes(props.cartItem)
+                        cartCheckedItems.includes(cartItem)
                             ? true
                             : false
                     }
-                    onChange={() => props.handleChangeChecked(props.cartItem)}
+                    onChange={() => handleChangeChecked(cartItem)}
                 />
             </td>
             <td className="productInfoGroup">
                 <Image
-                    src={props.cartItem.product.detail_image_url}
+                    src={cartItem.product.detail_image_url}
                     width={130}
                     height={130}
                     alt="상품 이미지"
                 />
                 <div className="productInfo">
                     <div className="itemName">
-                        {props.cartItem.product.item_name}
+                        {cartItem.product.item_name}
                     </div>
-                    <div className="price">{props.cartItem.product.price}</div>
-                    <span className={CUPON() ? "cupon" : "activeCupon"}>
-                        {CUPON() ? "쿠폰 적용 불가능" : "쿠폰 적용 가능"}
+                    <div className="price">{cartItem.product.price}</div>
+                    <span className={COUPON() ? "coupon" : "activeCoupon"}>
+                        {COUPON() ? "쿠폰 적용 불가능" : "쿠폰 적용 가능"}
                     </span>
                 </div>
             </td>
@@ -53,19 +58,19 @@ const CartItem = (props: CartItemsProps) => {
                 <input
                     type="number"
                     min={1}
-                    value={props.cartItem.stock}
+                    value={cartItem.stock}
                     max={49}
                     onChange={(e) => {
-                        props.handleStockChange(
+                        handleStockChange(
                             Number(e.target.value),
-                            props.cartItem
+                            cartItem
                         );
                     }}
                 />
             </td>
 
             <td className="productPrice">
-                {props.cartItem.stock * props.cartItem.product.price}
+                {cartItem.stock * cartItem.product.price}
                 <span>원</span>
             </td>
         </CartItemContainer>
@@ -96,7 +101,7 @@ const CartItemContainer = styled.tr`
         }
     }
 
-    .activeCupon {
+    .activeCoupon {
         padding: 5px 10px;
         color: #fff;
         background-color: #ff4800;
@@ -104,7 +109,7 @@ const CartItemContainer = styled.tr`
         font-size: 12px;
     }
 
-    .cupon {
+    .coupon {
         padding: 5px 10px;
         color: #ff4800;
         border: 1px solid #ff4800;
@@ -130,6 +135,14 @@ const CartItemContainer = styled.tr`
 
     .productPrice {
         border-right: none;
+    }
+
+    .stock {
+        input {
+            padding: 5px;
+            text-align: center;
+            font-weight: 700;
+        }
     }
 `;
 

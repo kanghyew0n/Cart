@@ -1,14 +1,14 @@
 import create from "zustand";
-import { CartItem } from "../types/products";
+import { CartItemState } from "../types/products";
 
 type CartItemType = {
-    cartItems: CartItem[];
-    setCartItems: (cartItems: CartItem[]) => void;
+    cartItems: CartItemState[];
+    setCartItems: (cartItems: CartItemState[]) => void;
 };
 
 const useCartItem = create<CartItemType>((set) => ({
     cartItems: [],
-    setCartItems: (cartItems: CartItem[]) => set(() => ({ cartItems })),
+    setCartItems: (cartItems: CartItemState[]) => set(() => ({ cartItems })),
 }));
 
 export default useCartItem;

@@ -7,6 +7,7 @@ type TotalItemProps = {
 };
 
 export const Pagination = (props: TotalItemProps) => {
+    const { totalItemNum } = props;
     const { pageInfo, setPageInfo } = usePaging();
 
     const changePage = (e: any) => {
@@ -16,7 +17,7 @@ export const Pagination = (props: TotalItemProps) => {
     return (
         <PaginationContainer>
             <ReactPaginate
-                pageCount={props.totalItemNum / 4}
+                pageCount={totalItemNum / 4}
                 pageRangeDisplayed={3}
                 marginPagesDisplayed={0}
                 previousLabel={"이전"}
@@ -51,4 +52,3 @@ const PaginationContainer = styled.div`
         opacity: 0;
     }
 `;
-

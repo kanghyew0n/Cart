@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
 import { useEffect } from "react";
 import { useQuery, useQueryClient } from "react-query";
-import { Product } from "../../types/products";
+import { ProductState } from "../../types/products";
 import { getProductsItem } from "../../api/productsAPI";
 import { tagItems } from "../../const";
 import Layout from "../../components/ui/layout";
 import ProductItem from "../../components/productPage/productItem";
-import { Tag } from "../../components/productPage/tag";
 import { Pagination } from "../../components/productPage/pagination";
 import usePaging from "../../store/pageInfoStore";
 
@@ -34,16 +33,12 @@ export default function ProductsPage() {
     });
 
     if (isLoading) return <h3>Loading...</h3>;
-    if (isError) return <h3>Oops, 웁스 something went wrong</h3>;
-
-    const TAG = () => {
-        return tagItems.map((item, idx) => <Tag key={idx} tag={item} />);
-    };
+    if (isError) return <h3>Error...!</h3>;
 
     const PRODUCTS = () => {
         return products
             .slice((pageInfo - 1) * 4, pageInfo * 4)
-            .map((product: Product) => (
+            .map((product: ProductState) => (
                 <ProductItem key={product.item_no} product={product} />
             ));
     };
@@ -51,7 +46,6 @@ export default function ProductsPage() {
     return (
         <>
             <Layout>
-                <TagGroup>{TAG()}</TagGroup>
                 <ProductsContainer>{PRODUCTS()}</ProductsContainer>
                 <Pagination totalItemNum={products.length} />
             </Layout>

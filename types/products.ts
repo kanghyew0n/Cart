@@ -1,4 +1,4 @@
-export type Product = {
+export type ProductState = {
     item_no: number;
     item_name: string;
     detail_image_url: string;
@@ -7,16 +7,16 @@ export type Product = {
     availableCoupon?: boolean;
 };
 
-export type Products = {
-    products : Product[];
+export type ProductsState = {
+    products : ProductState[];
 };
 
-export type CartItem = {
-    product: Product;
+export type CartItemState = {
+    product: ProductState;
     stock: number;
     checked : boolean;
 }
 
-export type CartItems = {
-    cartItems : CartItem[];
+export type CartItemsState = {
+    cartItems : CartItemState[];
 };
