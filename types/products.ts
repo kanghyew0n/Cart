@@ -1,7 +1,7 @@
 export type ProductState = {
     item_no: number;
     item_name: string;
-    detail_image_url: string;
+    image: string;
     price: number;
     score: number;
     availableCoupon?: boolean;

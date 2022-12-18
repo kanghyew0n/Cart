@@ -3,7 +3,7 @@ import axios from "axios";
 export const getProductsItem = async () => {
     try {
         const productsItem = await axios.get(
-            `http://localhost:8000/productItems?_sort=score&_order=desc`
+            `https://fakestoreapi.com/products?limit=15`
         );
         return productsItem.data;
     } catch (err) {

@@ -45,7 +45,7 @@ const ProductItem = (props: ProductsProps) => {
                 product={product}
             />
             <Image
-                src={product.detail_image_url}
+                src={product.image}
                 width={500}
                 height={500}
                 alt="상품 이미지"

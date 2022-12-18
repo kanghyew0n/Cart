@@ -35,7 +35,7 @@ const CartItem = (props: CartItemsProps) => {
             </td>
             <td className="productInfoGroup">
                 <Image
-                    src={cartItem.product.detail_image_url}
+                    src={cartItem.product.image}
                     width={130}
                     height={130}
                     alt="상품 이미지"

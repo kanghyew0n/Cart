@@ -32,6 +32,8 @@ export default function ProductsPage() {
         keepPreviousData: true,
     });
 
+    console.log(products)
+
     if (isLoading) return <h3>Loading...</h3>;
     if (isError) return <h3>Error...!</h3>;
 
