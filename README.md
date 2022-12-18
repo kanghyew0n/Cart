@@ -1,11 +1,6 @@
-# 29CM-Frontend-Challenge
-29CM 프론트엔드 코딩 과제
-
-<br/>
 
 ### 🛠 Install
 ```
-cd frontend-project-29cm 
 npm install
 ```
 
@@ -17,17 +12,9 @@ npm install
     * http://localhost:8000/productItems
     * http://localhost:8000/coupons 
 ```
-// frontend-project-29cm 폴더에서
 npm run dev
 npm run server
 ```
-
-<br/> 
- 
- ### 🚀 변경 & 추가된 요구사항 
- * 5개씩 보여주는 페이지네이션 → 4개씩 보여주는 것으로 구현
- * 반응형 UI 구현 (모바일 버전)
-
 
 <br/>
 <br/>
